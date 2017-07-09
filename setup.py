@@ -79,7 +79,7 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points='''
         [ckan.plugins]
-        quality=ckanext.predataset.plugin:Quality
+        quality=ckanext.quality.plugin:Quality
 	[babel.extractors]
 	ckan = ckan.lib.extract:extract_ckan
     ''',
