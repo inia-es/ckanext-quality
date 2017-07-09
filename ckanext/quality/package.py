@@ -881,6 +881,10 @@ class PackageController(base.BaseController):
 	    #data_dict['quality'] = (metadatosingresados/total)*100	
 	    data_dict['quality'] = 'testing'
 
+
+	    print(data_dict)
+	    abort(404, _('Dataset not found'))
+
             if ckan_phase:
                 # prevent clearing of groups etc
                 context['allow_partial_update'] = True
