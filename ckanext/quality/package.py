@@ -879,11 +879,10 @@ class PackageController(base.BaseController):
 		if (metadata):
 		    metadatosingresados=metadatosingresados+1
 	    #data_dict['quality'] = (metadatosingresados/total)*100	
-	    data_dict['quality'] = 'testing'
+	    data_dict['notes'] = data_dict
 
 
-	    print(data_dict)
-	    abort(404, _('Dataset not found'))
+	 
 
             if ckan_phase:
                 # prevent clearing of groups etc
