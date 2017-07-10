@@ -768,6 +768,9 @@ class PackageController(base.BaseController):
             check_access('package_update', context)
         except NotAuthorized:
             abort(403, _('User %r not authorized to edit %s') % (c.user, id))
+
+	data['quality'] = self.get_quality(data) 
+
         # convert tags if not supplied in data
         if data and not data.get('tag_string'):
             data['tag_string'] = ', '.join(h.dict_list_reduce(
