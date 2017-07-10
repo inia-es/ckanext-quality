@@ -879,7 +879,7 @@ class PackageController(base.BaseController):
 			if (not data_dict[metadata]==''):
 		    		metadatosingresados=metadatosingresados+1
 	    quality = metadatosingresados/total*100	
-	    data_dict['quality'] = 'Metadatos ingresados: ' + str(metadatosingresados)+ ' de ' + str(total) + " - " + str(quality) + "%"    
+	    data_dict['quality'] = 'Metadatos ingresados: ' + str(metadatosingresados)+ ' de ' + str(total)    
 	    
             if ckan_phase:
                 # prevent clearing of groups etc
