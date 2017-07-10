@@ -877,8 +877,9 @@ class PackageController(base.BaseController):
 	    stringtest=""
 	    for metadata in data_dict:
 	    	total = total + 1
-		stringtest = stringtest+metadata + "--"	 	
-		if (metadata):
+			
+		if (!data_dict[metadata]==''):
+		    stringtest = stringtest + metadata + "--"
 		    metadatosingresados=metadatosingresados+1
 	    quality = (metadatosingresados/total)*100	
       
