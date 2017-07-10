@@ -879,7 +879,8 @@ class PackageController(base.BaseController):
 		if (metadata):
 		    metadatosingresados=metadatosingresados+1
 	    #data_dict['quality'] = (metadatosingresados/total)*100	
-            data_dict.update({'quality': u'testtest'})
+      
+	    data_dict['quality-1'] = "valueeeeee"	    
 	    data_dict['notes'] = data_dict
 	  
 
