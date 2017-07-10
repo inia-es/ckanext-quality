@@ -956,7 +956,9 @@ class PackageController(base.BaseController):
             data_dict = clean_dict(dict_fns.unflatten(
                 tuplize_dict(parse_params(request.POST))))
 
+    	    del data_dict['quality']
 	    data_dict['quality'] = self.get_quality(data_dict)  
+	    data_dict['notes'] = data_dict
             
 	    if '_ckan_phase' in data_dict:
                 # we allow partial updates to not destroy existing resources
