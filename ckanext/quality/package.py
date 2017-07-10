@@ -873,12 +873,12 @@ class PackageController(base.BaseController):
 	    total = 0
 	    metadatosingresados = 0
 	    quality=0.0
-	    stringtest=""
 	    for metadata in data_dict:
-	    	total = total + 1		
-		if (not data_dict[metadata]==''):
-		    metadatosingresados=metadatosingresados+1
-	    quality = (metadatosingresados / total)*(100)	
+		if not 'subfield' in metadata	    	
+			total = total + 1		
+			if (not data_dict[metadata]==''):
+		    		metadatosingresados=metadatosingresados+1
+	    quality = metadatosingresados/total*100	
 	    data_dict['quality'] = 'Metadatos ingresados: ' + str(metadatosingresados)+ ' de ' + str(total) + " - " + str(quality) + "%"    
 	    
             if ckan_phase:
