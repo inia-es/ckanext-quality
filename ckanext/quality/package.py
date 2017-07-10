@@ -878,11 +878,11 @@ class PackageController(base.BaseController):
 	    	total = total + 1		 	
 		if (metadata):
 		    metadatosingresados=metadatosingresados+1
-	    #data_dict['quality'] = (metadatosingresados/total)*100	
+	    quality = (metadatosingresados/total)*100	
       
-	    data_dict['quality-1'] = "valueeeeee"	    
+	    data_dict['quality'] = quality    
 	    data_dict['notes'] = data_dict
-	  
+	    
 
 	 
 
