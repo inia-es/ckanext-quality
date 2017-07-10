@@ -869,26 +869,18 @@ class PackageController(base.BaseController):
         try:
             data_dict = clean_dict(dict_fns.unflatten(
                 tuplize_dict(parse_params(request.POST))))
-
-
 	##CALCULANDO LA CALIDAD DE LOS DATOS
 	    total = 0
 	    metadatosingresados = 0
+	    quality=0.0
 	    stringtest=""
 	    for metadata in data_dict:
-	    	total = total + 1
-			
+	    	total = total + 1		
 		if (not data_dict[metadata]==''):
-		    #stringtest = stringtest + metadata + "--"
 		    metadatosingresados=metadatosingresados+1
-	    quality = (metadatosingresados/total)*100	
-      
-	    data_dict['quality'] = str(total) + "---" + str(metadatosingresados) + "%"    
-	    #data_dict['notes'] = data_dict
+	    quality = (metadatosingresados / total)*(100)	
+	    data_dict['quality'] = 'Metadatos ingresados: ' + str(metadatosingresados)+ ' de ' + str(total) + " - " + str(quality) "%"    
 	    
-
-	 
-
             if ckan_phase:
                 # prevent clearing of groups etc
                 context['allow_partial_update'] = True
