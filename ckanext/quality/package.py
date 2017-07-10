@@ -505,7 +505,6 @@ class PackageController(base.BaseController):
 
         data = data or clean_dict(dict_fns.unflatten(tuplize_dict(parse_params(
             request.params, ignore_keys=CACHE_PARAMETERS))))
-	data['quality'] = self.get_quality(data_dict)
         c.resources_json = h.json.dumps(data.get('resources', []))
         # convert tags if not supplied in data
         if data and not data.get('tag_string'):
@@ -953,7 +952,10 @@ class PackageController(base.BaseController):
         try:
             data_dict = clean_dict(dict_fns.unflatten(
                 tuplize_dict(parse_params(request.POST))))
-            if '_ckan_phase' in data_dict:
+
+	    data_dict['quality'] = self.get_quality(data_dict)  
+            
+	    if '_ckan_phase' in data_dict:
                 # we allow partial updates to not destroy existing resources
                 context['allow_partial_update'] = True
                 if 'tag_string' in data_dict:
