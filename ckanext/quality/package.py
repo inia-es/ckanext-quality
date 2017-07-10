@@ -505,6 +505,7 @@ class PackageController(base.BaseController):
 
         data = data or clean_dict(dict_fns.unflatten(tuplize_dict(parse_params(
             request.params, ignore_keys=CACHE_PARAMETERS))))
+	data['quality'] = self.get_quality(data_dict)
         c.resources_json = h.json.dumps(data.get('resources', []))
         # convert tags if not supplied in data
         if data and not data.get('tag_string'):
@@ -869,17 +870,8 @@ class PackageController(base.BaseController):
         try:
             data_dict = clean_dict(dict_fns.unflatten(
                 tuplize_dict(parse_params(request.POST))))
-	##CALCULANDO LA CALIDAD DE LOS DATOS
-	    total = 0
-	    metadatosingresados = 0
-	    quality=0.0
-	    for metadata in data_dict:
-		if not 'subfield' in metadata:    	
-			total = total + 1		
-			if (not data_dict[metadata]==''):
-		    		metadatosingresados=metadatosingresados+1
-	    quality = metadatosingresados/total*100	
-	    data_dict['quality'] = 'Metadatos ingresados: ' + str(metadatosingresados)+ ' de ' + str(total)    
+	
+	    data_dict['quality'] = self.get_quality(data_dict)    
 	    
             if ckan_phase:
                 # prevent clearing of groups etc
@@ -952,7 +944,7 @@ class PackageController(base.BaseController):
                 return pkgcontroller.edit(data_dict['id'], data_dict,
                                  errors, error_summary)
             data_dict['state'] = 'none'
-            return pkgcontroller.new(data_dict, errors, error_summary)
+            return self.new(data_dict, errors, error_summary)
 
     def _save_edit(self, name_or_id, context, package_type=None):
         from ckan.lib.search import SearchIndexError
@@ -1603,3 +1595,19 @@ class PackageController(base.BaseController):
         else:
             return render(preview_plugin.preview_template(context, data_dict),
                           extra_vars={'dataset_type': dataset_type})
+
+
+    def get_quality(self, data):
+     ##CALCULANDO LA CALIDAD DE LOS DATOS
+	    total = 0
+	    metadatosingresados = 0
+	    quality=0.0
+	    for metadata in data:
+		if not 'subfield' in metadata:    	
+			total = total + 1		
+			if (not data[metadata]==''):
+		    		metadatosingresados=metadatosingresados+1
+	    quality = metadatosingresados/total*100	
+	    return 'Metadatos ingresados: ' + str(metadatosingresados)+ ' de ' + str(total)   
+
+
