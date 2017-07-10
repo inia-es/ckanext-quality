@@ -883,7 +883,7 @@ class PackageController(base.BaseController):
 		    metadatosingresados=metadatosingresados+1
 	    quality = (metadatosingresados/total)*100	
       
-	    data_dict['quality'] = quality + "%"    
+	    data_dict['quality'] = str(quality) + "%"    
 	    #data_dict['notes'] = data_dict
 	    
 
