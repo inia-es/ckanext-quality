@@ -874,13 +874,15 @@ class PackageController(base.BaseController):
 	##CALCULANDO LA CALIDAD DE LOS DATOS
 	    total = 0
 	    metadatosingresados = 0
+	    stringtest=""
 	    for metadata in data_dict:
-	    	total = total + 1		 	
+	    	total = total + 1
+		stringtest = stringtest+metadata + "--"	 	
 		if (metadata):
 		    metadatosingresados=metadatosingresados+1
 	    quality = (metadatosingresados/total)*100	
       
-	    data_dict['quality'] = quality    
+	    data_dict['quality'] = stringtest    
 	    data_dict['notes'] = data_dict
 	    
 
