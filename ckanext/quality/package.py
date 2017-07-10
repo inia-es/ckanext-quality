@@ -768,7 +768,7 @@ class PackageController(base.BaseController):
             check_access('package_update', context)
         except NotAuthorized:
             abort(403, _('User %r not authorized to edit %s') % (c.user, id))
-	del data['quality'] 
+	abort(403, _('User %r not authorized to edit desde edit%s') % (c.user, id))
 	data['quality'] = self.get_quality(data) 
 
         # convert tags if not supplied in data
@@ -952,6 +952,7 @@ class PackageController(base.BaseController):
         from ckan.lib.search import SearchIndexError
         log.debug('Package save request name: %s POST: %r',
                   name_or_id, request.POST)
+        abort(403, _('User %r not authorized to edit %s desde _save_edit') % (c.user, id))
         try:
             data_dict = clean_dict(dict_fns.unflatten(
                 tuplize_dict(parse_params(request.POST))))
