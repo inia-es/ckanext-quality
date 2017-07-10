@@ -874,7 +874,7 @@ class PackageController(base.BaseController):
 	    metadatosingresados = 0
 	    quality=0.0
 	    for metadata in data_dict:
-		if not 'subfield' in metadata	    	
+		if not 'subfield' in metadata:    	
 			total = total + 1		
 			if (not data_dict[metadata]==''):
 		    		metadatosingresados=metadatosingresados+1
