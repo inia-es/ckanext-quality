@@ -768,7 +768,7 @@ class PackageController(base.BaseController):
             check_access('package_update', context)
         except NotAuthorized:
             abort(403, _('User %r not authorized to edit %s') % (c.user, id))
-
+	del data['quality'] 
 	data['quality'] = self.get_quality(data) 
 
         # convert tags if not supplied in data
