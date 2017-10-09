@@ -688,6 +688,8 @@ class PackageController(base.BaseController):
             if save_action == 'go-metadata':
                 # XXX race condition if another user edits/deletes
                 data_dict = get_action('package_show')(context, {'id': id})
+                log.info("Contactar servidor")
+                log.info(str(data_dict))
                 get_action('package_update')(
                     dict(context, allow_state_change=True),
                     dict(data_dict, state='active'))
