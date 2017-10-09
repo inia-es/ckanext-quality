@@ -620,6 +620,7 @@ class PackageController(base.BaseController):
             data = data or \
                 clean_dict(dict_fns.unflatten(tuplize_dict(parse_params(
                                                            request.POST))))
+            log.info("Save"+data)
             # we don't want to include save as it is part of the form
             del data['save']
             resource_id = data['id']
@@ -696,9 +697,11 @@ class PackageController(base.BaseController):
                 h.redirect_to(controller='package', action='read', id=id)
             elif save_action == 'go-dataset':
                 # go to first stage of add dataset
+                log.info("go-dataset")
                 h.redirect_to(controller='package', action='edit', id=id)
             elif save_action == 'go-dataset-complete':
                 # go to first stage of add dataset
+                log.info("go-dataset-complete")
                 h.redirect_to(controller='package', action='read', id=id)
             else:
                 # add more resources
