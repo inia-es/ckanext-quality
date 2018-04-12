@@ -27,6 +27,8 @@ from ckan.common import OrderedDict, _, json, request, c, response
 from ckan.controllers.home import CACHE_PARAMETERS
 import ckan.controllers.package as pkgcontroller
 
+import os
+
 log = logging.getLogger(__name__)
 
 render = base.render
@@ -64,6 +66,9 @@ def search_url(params, package_type=None):
 
 
 class PackageController(base.BaseController):
+
+
+    quality_dictionary = {}
 
     def _package_form(self, package_type=None):
         return lookup_package_plugin(package_type).package_form()
@@ -1614,13 +1619,41 @@ class PackageController(base.BaseController):
      ##CALCULANDO LA CALIDAD DE LOS DATOS
 	    total = 0
 	    metadatosingresados = 0
-	    quality=0.0
+            if not self.quality_dictionary:
+	        with open(os.path.dirname(os.path.abspath(__file__))+'/quality.json', 'r') as f:
+                	self.quality_dictionary = eval(f.read())
+	    quality_metadata = {}
+            quality_metadata["core"]=0
+	    quality_metadata["legal"]=0
+            quality_metadata["practico"]=0
+            quality_metadata["social"]=0
+
 	    for metadata in data:
-		if not 'subfield' in metadata:    	
+                log.info(metadata)
+		if not 'subfield' in metadata:
+			log.info("Subfield")    	
 			total = total + 1		
 			if (not data[metadata]==''):
 		    		metadatosingresados=metadatosingresados+1
-	    quality = metadatosingresados/total*100	
-	    return 'Metadatos ingresados: ' + str(metadatosingresados)+ ' de ' + str(total)   
+				if metadata in self.quality_dictionary:
+ 					if self.quality_dictionary[metadata] in quality_metadata:
+						quality_metadata[self.quality_dictionary[metadata]]+=1
+					else: 
+						quality_metadata[self.quality_dictionary[metadata]] = 1
+				else:
+					log.error("Metadata "+metadata+" is not present in the quality dictionary") 
+            
+            quality_metadata["total"] = total
+            result =[]
+
+            #result.append("{"+"\"core\":"+str(quality_metadata["core"])+"}")
+	    result.append(quality_metadata["core"])
+            result.append(quality_metadata["legal"])   
+	    result.append(quality_metadata["practico"])
+	    result.append(quality_metadata["social"])
+
+  	    #return str(result)
+            return str(quality_metadata).replace('"','')
+	#    return 'Metadatos ing: ' + str(metadatosingresados)+ ' de ' + str(total)   
 
 
