@@ -1622,7 +1622,8 @@ class PackageController(base.BaseController):
             if not self.quality_dictionary:
 	        with open(os.path.dirname(os.path.abspath(__file__))+'/quality.json', 'r') as f:
                 	self.quality_dictionary = eval(f.read())
-	    quality_metadata = {}
+	    q_metadata = []
+            quality_metadata = {}
             quality_metadata["core"]=0
 	    quality_metadata["legal"]=0
             quality_metadata["practico"]=0
@@ -1654,6 +1655,9 @@ class PackageController(base.BaseController):
 
   	    #return str(result)
             return str(quality_metadata).replace('"','')
+            #log.info("QUality"+str(quality_metadata))
+            #q_metadata.append(str(quality_metadata))
+	    #return str(q_metadata)
 	#    return 'Metadatos ing: ' + str(metadatosingresados)+ ' de ' + str(total)   
 
 
